@@ -11,8 +11,7 @@ function setJwt(accessToken, refreshToken) {
 let http = {
   config: function (conf) {
     HTTP_DEFAULT.defaults.baseURL =
-      conf?.baseURL ||
-      "https://https://alice-server-prod.imssystems.tech" + "/api/v1";
+      conf?.baseURL || "https://alice-server-prod.imssystems.tech" + "/api/v1";
   },
   instance: HTTP_DEFAULT,
   get: HTTP_DEFAULT.get,
