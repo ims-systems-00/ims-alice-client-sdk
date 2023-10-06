@@ -4,4 +4,4 @@ export * from "./ai/index";
 export * from "./chatService";
 export * from "./chatheadService";
 export * from "./fileHandlerService";
-export * from "./httpServices";
+export { default as http } from "./httpServices";
