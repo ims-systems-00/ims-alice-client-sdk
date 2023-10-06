@@ -1,0 +1,23 @@
+{
+  "name": "alice-client-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.modern.js",
+  "unpkg": "./dist/index.umd.js",
+  "scripts": {
+    "build": "microbundle --output-style compressed"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "microbundle": "^0.15.1"
+  }
+}
