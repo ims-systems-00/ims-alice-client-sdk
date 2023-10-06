@@ -1,10 +1,15 @@
 import http from "./httpServices";
 const apiEndPoint = `/accounts`;
 export async function login(data) {
-  return http.post(apiEndPoint + "/auth/login", {
+  const response = await http.post(apiEndPoint + "/auth/login", {
     email: data.email,
     password: data.password,
   });
+  http.setJwt(
+    response?.data?.details?.accessToken,
+    response?.data?.details?.refreshToken
+  );
+  return response;
 }
 export async function registerAccount(data = { email, name, password }) {
   await http.post(apiEndPoint + "/registration", {
@@ -51,7 +56,12 @@ export async function verifyRecovery(
   );
 }
 export async function refreshToken(data) {
-  return http.get(apiEndPoint + "/auth/refresh-token");
+  const response = await http.get(apiEndPoint + "/auth/refresh-token");
+  http.setJwt(
+    response?.data?.details?.accessToken,
+    response?.data?.details?.refreshToken
+  );
+  return response;
 }
 export async function logout() {
   return http.delete(apiEndPoint + "/auth/logout");
