@@ -54,10 +54,7 @@ export async function streamResponse(
     options?.onStreamEnd(fullText);
   }
   try {
-    const URL =
-      process.env.REACT_APP_API_URL +
-      process.env.REACT_APP_API_VERSION +
-      `${apiEndPoint}/gpt-stream`;
+    const URL = http.instance.defaults.baseURL + `${apiEndPoint}/gpt-stream`;
     const config = {
       method: "POST",
       headers: {
