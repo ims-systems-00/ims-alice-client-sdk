@@ -21,6 +21,7 @@ export async function streamResponse(
     onStreamEnd: function () {},
     onError: function () {},
     onTokenRefreshNeed: async function () {},
+    onStreamStart: async function () {},
     headers: {},
   }
 ) {
@@ -39,6 +40,7 @@ export async function streamResponse(
 
   async function _successResponseHandler(response) {
     const reader = response.body.getReader();
+    options?.onStreamStart(reader);
     let fullText = "";
     while (true) {
       try {
