@@ -21,7 +21,6 @@ export async function streamResponse(
     onStreamEnd: function () {},
     onError: function () {},
     onTokenRefreshNeed: async function () {},
-    onStreamStart: async function () {},
     headers: {},
   }
 ) {
@@ -38,9 +37,8 @@ export async function streamResponse(
     }, "").length
   );
 
-  const reader = response.body.getReader();
   async function _successResponseHandler(response) {
-    options?.onStreamStart(reader);
+    const reader = response.body.getReader();
     let fullText = "";
     while (true) {
       try {
@@ -51,8 +49,6 @@ export async function streamResponse(
         options?.onStream(decodedtext);
       } catch (err) {
         console.log(err);
-        options?.onError(err);
-        break;
       }
     }
     options?.onStreamEnd(fullText);
