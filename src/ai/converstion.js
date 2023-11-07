@@ -21,6 +21,7 @@ export async function streamResponse(
     onStreamEnd: function () {},
     onError: function () {},
     onTokenRefreshNeed: async function () {},
+    onReadNewChunk: async function () {},
     headers: {},
   }
 ) {
@@ -41,6 +42,7 @@ export async function streamResponse(
     const reader = response.body.getReader();
     let fullText = "";
     while (true) {
+      options?.onReadNewChunk(reader);
       try {
         const { value, done } = await reader.read();
         if (done) break;
@@ -49,6 +51,8 @@ export async function streamResponse(
         options?.onStream(decodedtext);
       } catch (err) {
         console.log(err);
+        options?.onError(err);
+        break;
       }
     }
     options?.onStreamEnd(fullText);
