@@ -38,8 +38,8 @@ export async function streamResponse(
     }, "").length
   );
 
+  const reader = response.body.getReader();
   async function _successResponseHandler(response) {
-    const reader = response.body.getReader();
     let fullText = "";
     while (true) {
       options?.onReadNewChunk(reader);
@@ -75,6 +75,7 @@ export async function streamResponse(
     const response = await fetch(URL, config);
     if (response.ok) {
       _successResponseHandler(response);
+      return reader;
     } else {
       if (response.status === 401) {
         const data = await options?.onTokenRefreshNeed();
